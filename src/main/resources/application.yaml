@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /identity
+    context-path: /api
 
 spring:
   application:
@@ -21,3 +21,6 @@ spring:
 
 jwt:
   secretKey: "0123456789ABCDEF0123456789ABCDEF"
+
+media-cdn:
+  url: "https://media-content-cdn.imsteve.dev"
