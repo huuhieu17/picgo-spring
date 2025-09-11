@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /identity
+
+spring:
+  application:
+    name: "Picgo"
+# PostgreSQL datasource
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/test"
+    username: "postgres"
+    password: "nk0ckhun9"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+#    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+jwt:
+  secretKey: "0123456789ABCDEF0123456789ABCDEF"
