@@ -39,5 +39,7 @@ public class UserEntity {
     String bio;
 
     String role = "ROLE_USER";
+
+    boolean enabled;
 }
 

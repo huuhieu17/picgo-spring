@@ -8,12 +8,12 @@ spring:
     name: "Picgo"
 # PostgreSQL datasource
   datasource:
-#    url: "jdbc:postgresql://localhost:5432/test"
-#    username: "postgres"
-#    password: "nk0ckhun9"
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: "jdbc:postgresql://localhost:5432/test"
+    username: "postgres"
+    password: "nk0ckhun9"
+#    url: ${SPRING_DATASOURCE_URL}
+#    username: ${SPRING_DATASOURCE_USERNAME}
+#    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -27,3 +27,9 @@ jwt:
 
 media-cdn:
   url: "https://media-content-cdn.imsteve.dev"
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    com.steve.Picgo: DEBUG

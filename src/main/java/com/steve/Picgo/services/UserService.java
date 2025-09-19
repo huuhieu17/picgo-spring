@@ -68,4 +68,8 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(HttpStatus.BAD_GATEWAY, "User not found"));
     }
+
+    public UserEntity getUserByUsernameOrThrow(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new AppException(HttpStatus.BAD_GATEWAY, "User not found"));
+    }
 }
