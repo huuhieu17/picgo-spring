@@ -1,8 +1,13 @@
 package com.steve.Picgo.entites;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.steve.Picgo.enums.PostVisibility;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,43 +18,65 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(updatable = false, nullable = false)
-    private UUID id;
+    UUID id;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private UserEntity author;
+    UserEntity author;
 
     @Column(length = 1000)
-    private String caption;
+    String caption;
 
     @ElementCollection
     @CollectionTable(name = "post_hashtags", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "hashtag")
-    private List<String> hashtags;
+    List<String> hashtags;
 
     @ElementCollection
     @CollectionTable(name = "post_mentions", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "mention")
-    private List<String> mentions;
+    List<String> mentions;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MediaItem> media;
+    @JsonManagedReference
+    List<MediaItem> media;
 
     @Enumerated(EnumType.STRING)
-    private PostVisibility visibility = PostVisibility.PUBLIC;
+    PostVisibility visibility = PostVisibility.PUBLIC;
 
     @Embedded
-    private PostMetrics metrics = new PostMetrics();
+    PostMetrics metrics = new PostMetrics();
 
-    private boolean isPinned = false;
+    boolean isPinned = false;
 
-    private LocalDateTime createdAt;
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+    @LastModifiedDate
+    @Column(nullable = false)
+    LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    Double latitude;
+    Double longitude;
+    String locationName;
 }
 

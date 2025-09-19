@@ -1,7 +1,5 @@
 package com.steve.Picgo.exceptions;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 public class AppException extends RuntimeException {

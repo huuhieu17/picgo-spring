@@ -1,5 +1,7 @@
 package com.steve.Picgo.entites;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.steve.Picgo.enums.MediaType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,5 +27,7 @@ public class MediaItem {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
+    @JsonIgnore
+    @JsonBackReference
     private Post post;
 }
